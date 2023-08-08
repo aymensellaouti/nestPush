@@ -2,8 +2,6 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 const webpush = require('web-push');
 
-import { setVapidDetails, sendNotification } from 'web-push';
-
 const vapidKeys = {
   publicKey:
     'BCucKI9WG2aEbOhigJ6y_3Z28GIe0jp9QjaZtXXUABjGoUMup6IoYUrTSMh72MxP3t6eVoV6cZ1doEGMm9cRJ2Q',
@@ -36,16 +34,19 @@ export class AppController {
     return subscription;
   }
   private sendPushNotification(subscription) {
-    sendNotification(
-      subscription,
-      JSON.stringify({
-        notification: {
-          title: 'Our first push notification',
-          body: 'Here you can add some text',
-        },
-      }),
-      options,
-    )
+    webpush
+      .sendNotification(
+        subscription,
+        JSON.stringify({
+          notification: {
+            title: 'Our first push notification',
+            body: 'Here you can add some text',
+            badge:
+              'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.iconpacks.net%2Ffree-icon%2Fnotification-bell-5743.html&psig=AOvVaw1ESRrSfLgapt9qxkTi71y0&ust=1691593366672000&source=images&cd=vfe&opi=89978449&ved=2ahUKEwiJ5Ii_qs2AAxUTkFwKHdczB2wQjRx6BAgAEAw',
+          },
+        }),
+        options,
+      )
       .then((log) => {
         console.log('Push notification sent.');
         console.log(log);
