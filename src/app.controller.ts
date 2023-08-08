@@ -25,6 +25,10 @@ export class AppController {
   getHello(): any {
     return { test: 'test' };
   }
+  @Post()
+  postHello(@Body() data): any {
+    return data;
+  }
   @Post('notifications')
   subscribeForNotifications(@Body() subscription: any) {
     console.log('subscribeForNotifications');
