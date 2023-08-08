@@ -38,7 +38,7 @@ export class AppController {
     console.log('subscribeForNotifications');
 
     console.log({ subscription });
-    /* this.sendPushNotification(subscription); */
+    this.sendPushNotification(subscription);
     return subscription;
   }
   private sendPushNotification(subscription) {
